@@ -33,6 +33,7 @@ class ServerClass:
 def barcode_thread():
     while True:
         result = str(input())
+        print(result)
         if ServerClass.currentUser == result:
             print("Logged out")
             payload = {
@@ -72,6 +73,14 @@ Serve root index file
 def index():
     return render_template("index.html")
 
+@app.route('/qrcode', methods=['POST'])
+def handle_qrcode():
+    data = request.get_json()
+    # Process the data...
+    return jsonify({"message": "QR code processed successfully"}), 200
+
+
+
 
 """
 Decorator for connect
@@ -101,3 +110,6 @@ def disconnect():
 
 if __name__ == "__main__":
     socketio.run(app, port=5999)
+
+
+
